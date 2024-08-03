@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'information',
     'events',
     'department',
-    'frontend',
 ]
 
 LOGIN_REDIRECT_URL = 'home'
