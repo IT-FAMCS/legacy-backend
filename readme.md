@@ -1,18 +1,48 @@
-## Запуск
-## Создать в корневой папке папку с именем base
-##Создать вирутальное окружение и утсановить Django и CorsHeadders
+## Запуск на Windows
+# Создать в корневой папке папку с именем base
+```
+mkdir base
+```
+# Создать вирутальное окружение
 ```
 python -m venv venv
 venv/Scripts/activate
-python -m pip install django
-python -m pip install django-cors-headers
 ```
-Выполнить миграции
+# Загрузить библиотеки
+```
+python -m pip install -r requirements.txt
+```
+
+# Выполнить миграции
 ```
 python manage.py makemigraions
 python manage.py migrate
 ```
-Переходиим в корневую папку, где содержится manage.py
+# Запустить сервер
 ```
 python manage.py runserver
+```
+## Запуск на MacOS
+# Создать в корневой папке папку с именем base
+```
+mkdir base
+```
+# Создать вирутальное окружение
+```
+python3 -m pip install virtualenv
+python -m virtualenv venv
+source ./venv/bin/activate
+```
+# Загрузить библиотеки
+```
+python3 -m pip install -r requirements.txt
+```
+# Выполнить миграции
+```
+python3 manage.py makemigraions
+python3 manage.py migrate
+```
+# Запустить сервер
+```
+python3 manage.py runserver
 ```
