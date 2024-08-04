@@ -30,7 +30,7 @@ mkdir base
 ## Создать вирутальное окружение
 ```
 python3 -m pip install virtualenv
-python -m virtualenv venv
+python3 -m virtualenv venv
 source ./venv/bin/activate
 ```
 ## Загрузить библиотеки
