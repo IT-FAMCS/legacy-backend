@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+def LIMITS(type):
+    limits = {}
+    with open(os.path.join(BASE_DIR, 'legacy', 'limits.txt'), "r") as f:
+        for line in f:
+            key, value = line.strip().split('=')
+            limits[key] = int(value)
+    return limits.get(type)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +33,7 @@ SECRET_KEY = 'django-insecure-p7f4csg3m+kr8qwlzhr*z5f^=&k^)i$mbmz=ter$4q8ndr06vz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['legacy-famcs.ru']
 
 
 # Application definition
@@ -43,7 +51,6 @@ INSTALLED_APPS = [
     'information',
     'events',
     'department',
-    'frontend',
 ]
 
 LOGIN_REDIRECT_URL = 'home'
@@ -146,5 +153,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

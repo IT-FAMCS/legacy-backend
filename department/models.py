@@ -1,8 +1,9 @@
 from django.db import models
+from django.conf import settings
 
 class Department(models.Model):
-    short_title = models.CharField(max_length=10, unique=True)
-    title = models.TextField()
+    short_title = models.CharField(max_length=settings.LIMITS("short_title"), unique=True)
+    title = models.CharField(max_length=settings.LIMITS("title"))
     description = models.TextField(default = "Отсутсвует")
     structure = models.TextField(default = "Отсутсвует")
     work = models.TextField(default = "Отсутсвует")

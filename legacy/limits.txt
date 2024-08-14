@@ -1,0 +1,2 @@
+short_title=30
+title=50
