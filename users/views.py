@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from . import models
-
+from django.db import connection
 from .models import user
 from .serializer import LoginSerializer
 from .serializer import RegistrationSerializer, UserSerializer
@@ -25,6 +25,33 @@ class RegistrationAPIView(APIView):
             status=status.HTTP_201_CREATED,
         )
 
+class UpdateUsers(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            # Получение данных из запроса
+            users = request.data.get("users", [])
+            if not users:
+                return Response({"error": "No 'users' key in the request body"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Обновление данных в таблице users_user
+            with connection.cursor() as cursor:
+                for user in users:
+                    cursor.execute("""
+                        UPDATE users_user
+                        SET username = %s, email = %s, first_name = %s, last_name = %s
+                        WHERE id = %s
+                    """, [
+                        user.get("username"),
+                        user.get("email"),
+                        user.get("first_name"),
+                        user.get("last_name"),
+                        user.get("id"),
+                    ])
+
+            return Response({"status": "success", "message": "Users updated successfully"}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class LoginAPIView(APIView):
     permission_classes = [AllowAny]
